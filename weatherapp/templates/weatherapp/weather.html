@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+{% load static %}
 <html lang="en">
 
 <head>
@@ -6,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather App</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.6.2/css/bulma.css" />
+    <link rel="stylesheet" href="{% static 'bulma.css' %}" />
 </head>
 
 <body>
@@ -36,6 +37,9 @@
                                 </button>
                             </div>
                         </div>
+                        {% if message %}
+                        <div class="notification {{ message_class }}">{{ message }}</div>
+                        {% endif %}
                     </form>
                 </div>
             </div>
@@ -56,12 +60,15 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <span class="title">{{ city_weather.city }}</span>
+                                        <span class="title" style="text-transform: capitalize;">{{ city_weather.city }}</span>
                                         <br>
                                         <span class="subtitle">{{ city_weather.temperature }} °C</span>
                                         <br><div style="text-transform: capitalize;">{{ city_weather.description }}</div> 
                                     </p>
                                 </div>
+                            </div>
+                            <div class="media-right">
+                                 <a href="{% url 'delete_city' city_weather.city %}"><button class="delete"></button></a>
                             </div>
                         </article>
                     </div>
@@ -70,8 +77,6 @@
             </div>
         </div>
     </section>
-    <footer class="footer">
-    </footer>
 </body>
 
 </html>
