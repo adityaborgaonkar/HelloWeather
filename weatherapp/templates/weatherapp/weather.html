@@ -7,15 +7,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Weather App</title>
-    <link rel="stylesheet" href="{% static 'bulma.css' %}" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bulma@0.8.0/css/bulma.min.css">
+    <script src="https://kit.fontawesome.com/e53c8f8b36.js" crossorigin="anonymous"></script>
 </head>
 
-<body>
-    <section class="hero is-primary">
+<body style="background-color: hsl(0, 0%, 96%);">
+    <section class="hero is-white">
         <div class="hero-body">
             <div class="container">
                 <h1 class="title">
-                    What's the weather like?
+                <i class="fas fa-cloud-sun-rain"></i> Hello Weather
                 </h1>
             </div>
         </div>
@@ -27,12 +28,11 @@
                     <form method="POST">
                         {% csrf_token %}
                         <div class="field has-addons">
-                            <div class="control is-expanded">
-                                
+                            <div class="control is-expanded">   
                                 {{ form.name }}
                             </div>
                             <div class="control">
-                                <button type=submit class="button is-info">
+                                <button type=submit class="button is-warning">
                                     Add City
                                 </button>
                             </div>
@@ -50,8 +50,8 @@
             <div class="columns">
                 <div class="column is-offset-4 is-4">
                     {% for city_weather in weather_data %}
-                    <div class="box">
-                        <article class="media">
+                    <div class="box has-text-dark">
+                        <article class="media is-black">
                             <div class="media-left">
                                 <figure class="image is-50x50">
                                     <img src="http://openweathermap.org/img/w/{{ city_weather.icon }}.png" alt="Image">
@@ -62,7 +62,7 @@
                                     <p>
                                         <span class="title" style="text-transform: capitalize;">{{ city_weather.city }}</span>
                                         <br>
-                                        <span class="subtitle">{{ city_weather.temperature }} °C</span>
+                                        <span class="subtitle has-text-link">{{ city_weather.temperature }} °C</span>
                                         <br><div style="text-transform: capitalize;">{{ city_weather.description }}</div> 
                                     </p>
                                 </div>

@@ -2,20 +2,27 @@ from django.shortcuts import render, redirect
 import requests
 from .models import City
 from .forms import CityForm
-# Create your views here.
+
+
 def index(request):
+	
+	# OpenWeatherMap API url. Use your own API key instead of d004370d3630125f1a4820dc9a375c59.
 	url = 'http://api.openweathermap.org/data/2.5/weather?q={}&units=metric&appid=d004370d3630125f1a4820dc9a375c59'
 
 	err_msg = ''
 	message = ''
 	message_class = ''
+
 	if request.method == 'POST':
 
 		form = CityForm(request.POST)
 
 		if form.is_valid():
+
 			new_city = form.cleaned_data['name']
 			existing_city_count = City.objects.filter(name=new_city).count()
+
+			
 			if existing_city_count == 0:
 				r = requests.get(url.format(new_city)).json()
 				
@@ -60,6 +67,7 @@ def index(request):
 		'message': message,
 		'message_class': message_class,
 		}
+
 	return render(request,'weatherapp/weather.html',context)
 
 
